@@ -51,11 +51,17 @@ def greedy(acts):
 
     return ResultActivitiesIndex, ResultActivitiesDurations
 
+def showActivities():
+    for i, act in enumerate(activities):
+        print(f'A{i + 1}: {act[0]}s to {act[1]}s')
+        
 def main():
-    
+    print("The initial activities(A) are:")
+    showActivities()
     results = greedy(activities)
-    print("The activities with the least non-overlapping duration are:")
+
+    print("\n\nThe activities with the least non-overlapping duration are:")
     for (i, act) in zip(results[0], results[1]):
-        print(f'Activitie {i + 1}: {act[1] - act[0]} seconds ({act[0]}s to {act[1]}s)')
+        print(f'Activity {i + 1}: {act[1] - act[0]} seconds ({act[0]}s to {act[1]}s)')
 
 main()
