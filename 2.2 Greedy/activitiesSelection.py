@@ -62,6 +62,6 @@ def main():
 
     print("\n\nThe activities with the least non-overlapping duration are:")
     for (i, act) in zip(results[0], results[1]):
-        print(f'Activity {i + 1}: {act[1] - act[0]} seconds ({act[0]}s to {act[1]}s)')
+        print(f'A{i + 1}: {act[1] - act[0]} seconds ({act[0]}s to {act[1]}s)')
 
 main()
