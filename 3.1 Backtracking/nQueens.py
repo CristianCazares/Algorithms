@@ -4,6 +4,7 @@ from turtle import back
 def showMatrix(m):
     for row in m:
         print(row)
+    print("")
 
 def isValid(inMat):
     queenCountRow=0
@@ -30,7 +31,7 @@ def isValid(inMat):
 
                 while currRow<=floor and currColumn<=right:
                     if inMat[currRow][currColumn]!=0:
-                        print("bottom right collision")
+                        #print("bottom right collision")
                         return False
                     currRow+=1
                     currColumn+=1
@@ -42,7 +43,7 @@ def isValid(inMat):
 
                 while currRow<=floor and currColumn>=left:
                     if inMat[currRow][currColumn]!=0:
-                        print("bottom left collision")
+                        #print("bottom left collision")
                         return False
                     currRow+=1
                     currColumn-=1
@@ -54,7 +55,7 @@ def isValid(inMat):
 
                 while currRow>=ceiling and currColumn<=right:
                     if inMat[currRow][currColumn]!=0:
-                        print("top right collision")
+                        #print("top right collision")
                         return False
                     currRow-=1
                     currColumn+=1
@@ -66,7 +67,7 @@ def isValid(inMat):
 
                 while currRow>=ceiling and currColumn>=left:
                     if inMat[currRow][currColumn]!=0:
-                        print("top left collision")
+                        #print("top left collision")
                         return False
                     currRow-=1
                     currColumn-=1
@@ -84,37 +85,34 @@ def isSolution(m, nthQueen):
         return True
     return False
 
-def backtracking(matrix, nthQueen):
+def backtracking(matrix, nthQueen, sol):
     for i in range(len(matrix)):
-        print("\n")
         m = [row[:] for row in matrix]
         m[nthQueen - 1][i] = nthQueen
-
-        showMatrix(m)
-        print(isValid(m))
-
-        if not isValid(m) and i == len(matrix) - 1:
-            return []
 
         if not isValid(m):
             continue
         
         if isSolution(m, nthQueen):
-            print("=============================SOLUTION!!!!!!")
+            sol.append(m)
             return m
 
-        mAux = backtracking(m, nthQueen + 1)
-        if mAux == []:
-            continue
-        return m
+        backtracking(m, nthQueen + 1, sol)
+
 
 
 
 def main():
-    boardLength = 4
-    board = [[0 for _ in range(boardLength)] for _ in range(boardLength)]
+    boardLength = int(input("Enter a board dimension: "))
     
-    print(backtracking(board, 1))
+    board = [[0 for _ in range(boardLength)] for _ in range(boardLength)]
+    solution = []
+    backtracking(board, 1, solution)
+
+
+    print(f"Found {len(solution)} solutions for queens on a {boardLength} x {boardLength} board.")
+    for sol in solution:
+        showMatrix(sol)
     
 
 main()
